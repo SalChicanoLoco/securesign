@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trustee Appointment and Acceptance — Atencio Living Trust</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root {
+  --ink:    #1a1209;
+  --paper:  #faf8f4;
+  --rule:   #c8bfb0;
+  --accent: #1a1209;
+  --input-bg: #f0ede6;
+  --input-border: #9a9080;
+  --input-focus: #1a1209;
+  --red:    #8b1a1a;
+  --serif:  'EB Garamond', Georgia, serif;
+  --mono:   'IBM Plex Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; }
+  .page { box-shadow: none; margin: 0; max-width: 100%; }
+  input, textarea, select { border: none !important; background: transparent !important; }
+}
+
+body {
+  background: #e8e4dc;
+  font-family: var(--serif);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ── TOOLBAR ── */
+.toolbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 32px;
+}
+.toolbar-title {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+.toolbar-actions { display: flex; gap: 10px; }
+.btn {
+  padding: 7px 18px;
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; border: none; transition: all 0.15s;
+}
+.btn-primary { background: white; color: var(--ink); }
+.btn-primary:hover { background: #e8e4dc; }
+.btn-secondary { background: transparent; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.2); }
+.btn-secondary:hover { color: white; border-color: rgba(255,255,255,0.5); }
+
+/* ── PAGE ── */
+.page {
+  max-width: 816px; /* 8.5in at 96dpi */
+  margin: 32px auto;
+  background: var(--paper);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.18);
+  padding: 108px 72px 72px; /* 1.5in top, 0.75in sides */
+}
+
+/* ── DOCUMENT HEADER ── */
+.doc-title {
+  text-align: center;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 14px;
+  margin-bottom: 10px;
+}
+.doc-title h1 {
+  font-family: var(--serif);
+  font-size: 18px; font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.doc-title h2 {
+  font-size: 14px; font-weight: 400;
+  font-style: italic; margin-top: 4px;
+}
+
+.doc-notice {
+  border: 1.5px solid var(--ink);
+  padding: 10px 16px; margin: 16px 0;
+  font-size: 11px; font-weight: 600;
+  text-align: center; text-transform: uppercase;
+  letter-spacing: 0.5px; line-height: 1.5;
+}
+
+/* ── SECTIONS ── */
+.section { margin-top: 28px; }
+.section-title {
+  font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  text-align: center;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 5px; margin-bottom: 14px;
+}
+.section-sub {
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin: 16px 0 8px;
+}
+
+p.body { font-size: 14px; line-height: 1.75; margin-bottom: 10px; }
+p.body-sm { font-size: 12px; line-height: 1.6; margin-bottom: 8px; font-style: italic; }
+
+/* ── TABLES ── */
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 12.5px; margin: 10px 0;
+}
+th {
+  background: #ddd9d0; font-weight: 700;
+  padding: 7px 10px; text-align: left;
+  border: 1px solid var(--rule); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+td {
+  padding: 6px 10px; border: 1px solid var(--rule);
+  vertical-align: top; line-height: 1.5;
+}
+tr:nth-child(even) td { background: #f5f2ec; }
+
+/* ── FORM FIELDS ── */
+.field-group { margin-bottom: 12px; }
+.field-label {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: #6b6050; margin-bottom: 4px; display: block;
+}
+.field-input {
+  width: 100%;
+  background: var(--input-bg);
+  border: none; border-bottom: 1.5px solid var(--input-border);
+  padding: 8px 10px;
+  font-family: var(--serif); font-size: 14px;
+  color: var(--ink); outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.field-input:focus {
+  border-bottom-color: var(--input-focus);
+  background: #e8e4da;
+}
+.field-input::placeholder { color: #b0a898; font-style: italic; }
+textarea.field-input { resize: vertical; min-height: 60px; }
+
+/* Grid layouts */
+.field-row { display: grid; gap: 14px; margin-bottom: 12px; }
+.col-2 { grid-template-columns: 1fr 1fr; }
+.col-3 { grid-template-columns: 1fr 1fr 1fr; }
+.col-13 { grid-template-columns: 1fr 3fr; }
+.col-31 { grid-template-columns: 3fr 1fr; }
+
+/* ── SIGNATURE BLOCKS ── */
+.sig-block {
+  margin: 20px 0;
+  border: 1.5px solid var(--ink);
+  padding: 20px 24px;
+  background: white;
+}
+.sig-block-title {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--ink); margin-bottom: 14px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--rule);
+}
+.sig-field {
+  min-height: 64px;
+  background: #f5f5f0;
+  border: 1.5px dashed var(--input-border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s;
+  margin-bottom: 10px;
+}
+.sig-field:hover { background: #eeeae2; border-color: var(--ink); }
+.sig-field-label {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--input-border);
+}
+.sig-field.signed { background: #f0f8f0; border-color: #4a8a4a; border-style: solid; }
+.sig-field.signed .sig-field-label { color: #4a8a4a; }
+
+/* ── NOTARY ── */
+.notary-block {
+  margin: 16px 0;
+  border: 1px solid var(--rule);
+  padding: 18px 20px;
+  background: #f8f6f0;
+}
+.notary-block-title {
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 10px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+.ron-note {
+  background: #fff9e6;
+  border-left: 3px solid #c09020;
+  padding: 8px 12px; margin: 10px 0;
+  font-size: 12px; line-height: 1.5;
+}
+
+/* ── CITATION LIST ── */
+.citation-group { margin-bottom: 12px; }
+.citation-group-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.citation-item {
+  font-size: 12px; padding: 2px 0 2px 16px;
+  position: relative; line-height: 1.5; color: #3a3028;
+}
+.citation-item::before { content: '•'; position: absolute; left: 4px; }
+
+/* ── STATUS BAR ── */
+.status-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--ink); color: rgba(255,255,255,0.6);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 32px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px;
+}
+.status-complete { color: #6abf6a; }
+.progress-bar-wrap {
+  width: 160px; height: 3px;
+  background: rgba(255,255,255,0.15);
+}
+.progress-bar-fill {
+  height: 100%; background: #6abf6a;
+  transition: width 0.4s ease;
+}
+
+hr.rule { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
+hr.rule-heavy { border: none; border-top: 1.5px solid var(--ink); margin: 20px 0; }
+
+
+/* ── E-SIGNATURE SECURITY LAYER ── */
+.topbar-progress { position:absolute; left:0; right:0; bottom:0; height:4px; background:rgba(255,255,255,.12); }
+.topbar-progress-fill { height:100%; width:0%; background:#6abf6a; transition:width .25s ease; }
+.toolbar { flex-wrap:wrap; gap:10px; }
+.toolbar-actions { flex-wrap:wrap; justify-content:flex-end; }
+.btn-danger { background:#8b1a1a; color:white; }
+.btn-danger:hover { background:#a42121; }
+.required-missing { border-bottom-color:#c04030 !important; background:#fff4f2 !important; }
+.required-ok { border-bottom-color:#4a8a4a !important; }
+.validation-msg { color:#8b1a1a; font-family:var(--mono); font-size:9px; letter-spacing:1px; text-transform:uppercase; margin-top:4px; display:none; }
+.validation-msg.show { display:block; }
+.esig-card { border:1.5px solid var(--input-border); background:white; padding:12px; margin-top:6px; }
+.esig-card.confirmed { border-color:#2f7d32; box-shadow:0 0 0 2px rgba(47,125,50,.08) inset; }
+.esig-head { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; }
+.esig-status { font-family:var(--mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; border:1px solid var(--input-border); padding:4px 8px; color:#8a7f70; background:#f8f6f0; }
+.esig-status.ok { border-color:#2f7d32; color:#2f7d32; background:#f0f8f0; }
+.signature-pad-wrap { width:100%; border:1.5px dashed var(--input-border); background:#fff; min-height:154px; position:relative; touch-action:none; }
+.signature-pad { width:100%; height:150px; display:block; touch-action:none; cursor:crosshair; }
+.signature-hint { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; color:#b0a898; font-family:var(--mono); font-size:9px; letter-spacing:2px; text-transform:uppercase; }
+.signature-actions { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+.esig-confirmation { margin-top:10px; }
+.esig-confirmed-image { display:none; margin:10px 0; border:1px solid #2f7d32; background:#f8fff8; padding:8px; }
+.esig-confirmed-image img { max-width:100%; height:auto; display:block; }
+.esig-audit-line { display:none; font-family:var(--mono); font-size:9px; line-height:1.5; color:#2f7d32; margin-top:6px; word-break:break-word; }
+.audit-panel { margin-top:28px; border:1.5px solid var(--ink); background:#f8f6f0; padding:18px 20px; }
+.audit-panel-title { font-family:var(--mono); font-size:10px; letter-spacing:2.5px; text-transform:uppercase; border-bottom:1px solid var(--rule); padding-bottom:8px; margin-bottom:10px; }
+.audit-grid { display:grid; grid-template-columns:1fr; gap:6px; font-family:var(--mono); font-size:9px; line-height:1.55; word-break:break-word; }
+.hash-block { margin-top:12px; background:#061006; color:#72df72; border:1px solid #2f7d32; padding:12px; font-family:var(--mono); font-size:10px; line-height:1.55; word-break:break-all; }
+.audit-warning { margin-top:10px; border-left:3px solid #8b1a1a; padding:8px 10px; font-size:12px; line-height:1.5; background:#fff4f2; }
+@media (max-width:700px) {
+  .page { margin:0; padding:82px 22px 52px; max-width:100%; }
+  .toolbar { padding:10px 12px; }
+  .toolbar-actions { width:100%; }
+  .btn { padding:7px 10px; }
+  .field-row, .col-2, .col-3, .col-13, .col-31 { grid-template-columns:1fr; }
+  .status-bar { padding:8px 12px; flex-wrap:wrap; gap:6px; }
+}
+@media print {
+  .no-print { display:none !important; }
+  .page { padding:48px 48px; background:white; }
+  .esig-card, .audit-panel { break-inside:avoid; page-break-inside:avoid; }
+  .signature-pad-wrap, .signature-actions, .esig-confirmation { display:none !important; }
+  .esig-confirmed-image, .esig-audit-line { display:block !important; }
+  .audit-panel { display:block !important; background:white; }
+  .hash-block { color:#000; background:white; border:1px solid #000; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div class="toolbar no-print">
+  <div class="toolbar-title">Atencio Living Trust — Secure E-Signature Portal</div>
+  <div class="toolbar-actions">
+    <button class="btn btn-secondary" onclick="copySigningLink()">Copy Signing Link</button>
+    <button class="btn btn-secondary" onclick="emailSigner()">Email to Signer</button>
+    <button class="btn btn-secondary" onclick="finalizeDocument()">Finalize + Hash</button>
+    <button class="btn btn-secondary" onclick="downloadSignedPDF()">Download Signed PDF</button>
+    <button class="btn btn-secondary" onclick="window.print()">Print / Save PDF</button>
+    <button class="btn btn-danger" onclick="clearForm()">Clear All</button>
+  </div>
+  <div class="topbar-progress"><div class="topbar-progress-fill" id="top-progress-fill"></div></div>
+</div>
+
+<!-- DOCUMENT -->
+<div class="page" id="document">
+
+  <!-- TITLE -->
+  <div class="doc-title">
+    <h1>Trustee Appointment and Acceptance</h1>
+    <h2>Pedro and Diane M. Atencio Living Trust &mdash; Dated September 7, 2016</h2>
+  </div>
+
+  <div class="doc-notice">
+    Attorney Review Required Before Execution &mdash; This Document Does Not Constitute Legal Advice
+  </div>
+
+  <!-- PARTIES TABLE -->
+  <div class="section">
+    <div class="section-title">I. Parties</div>
+    <table>
+      <thead><tr><th>Party</th><th>Name</th><th>Capacity</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Beneficiary /<br>Appointing Party</strong></td><td>Alicia R. Atencio</td><td>Qualified beneficiary and appointing authority under the Trust and NMSA 1978 &sect; 46A-7-704(C)(2)</td></tr>
+        <tr><td><strong>Successor Trustee</strong></td><td>[Father Brenen &mdash; Full Legal Name]</td><td>Appointee &mdash; accepting all duties of Successor Trustee</td></tr>
+        <tr><td><strong>Trust</strong></td><td>Pedro and Diane M. Atencio Living Trust</td><td>Living trust dated September 7, 2016 &mdash; governing instrument</td></tr>
+        <tr><td><strong>Former Trustee</strong></td><td>Cardinal Trust Inc.</td><td>Resigned effective April 15, 2026 per Hurley Toevs Styles Hamblin &amp; Panter PA</td></tr>
+        <tr><td><strong>Jurisdiction</strong></td><td>State of New Mexico<br>Santa Fe County</td><td>NMSA 1978 Chapter 46A &mdash; NM Uniform Trust Code</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DOCUMENT DATE -->
+  <div class="section">
+    <div class="field-row col-2">
+      <div class="field-group">
+        <label class="field-label" for="doc_date">Date of Execution</label>
+        <input class="field-input" id="doc_date" type="date" data-required="true">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="doc_location">Place of Execution</label>
+        <input class="field-input" id="doc_location" type="text" placeholder="Santa Fe, New Mexico" value="Santa Fe, New Mexico">
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule-heavy">
+
+  <!-- SUCCESSOR TRUSTEE INFO -->
+  <div class="section">
+    <div class="section-title">II. Successor Trustee Information</div>
+    <p class="body">The Beneficiary hereby appoints the following individual as Successor Trustee of the Pedro and Diane M. Atencio Living Trust pursuant to NMSA 1978 &sect; 46A-7-704(C)(2) and &sect; 48-10-7.</p>
+
+    <div class="field-group">
+      <label class="field-label" for="trustee_name">Full Legal Name *</label>
+      <input class="field-input" id="trustee_name" type="text" placeholder="Father Brenen — enter full legal name as it appears on government ID" data-required="true">
+    </div>
+
+    <div class="field-row col-2">
+      <div class="field-group">
+        <label class="field-label" for="trustee_phone">Phone *</label>
+        <input class="field-input" id="trustee_phone" type="tel" placeholder="(xxx) xxx-xxxx" data-required="true">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="trustee_email">Email *</label>
+        <input class="field-input" id="trustee_email" type="email" placeholder="email@example.com" data-required="true">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="trustee_address">Street Address *</label>
+      <input class="field-input" id="trustee_address" type="text" placeholder="Street address" data-required="true">
+    </div>
+
+    <div class="field-row col-3">
+      <div class="field-group">
+        <label class="field-label" for="trustee_city">City *</label>
+        <input class="field-input" id="trustee_city" type="text" placeholder="City" data-required="true">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="trustee_state">State</label>
+        <input class="field-input" id="trustee_state" type="text" placeholder="Ohio" value="Ohio">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="trustee_zip">ZIP</label>
+        <input class="field-input" id="trustee_zip" type="text" placeholder="ZIP code" data-required="true">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="trustee_relationship">Relationship to Beneficiary *</label>
+      <input class="field-input" id="trustee_relationship" type="text" placeholder="e.g. Spiritual advisor, trusted individual" data-required="true">
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- LEGAL AUTHORITY TABLE -->
+  <div class="section">
+    <div class="section-title">III. Legal Authority</div>
+    <table>
+      <thead><tr><th>Authority</th><th>Citation</th><th>Application</th></tr></thead>
+      <tbody>
+        <tr><td>Vacancy in Trusteeship</td><td>NMSA 1978 &sect; 46A-7-704</td><td>Cardinal Trust resigned April 15, 2026. Vacancy filled by qualified beneficiary appointment.</td></tr>
+        <tr><td>Acceptance of Trusteeship</td><td>NMSA 1978 &sect; 46A-7-701</td><td>Successor Trustee accepts by signing this document.</td></tr>
+        <tr><td>Federal SNT Requirements</td><td>42 U.S.C. &sect; 1396p(d)(4)(A)</td><td>Trust for sole benefit of disabled individual. Distributions must supplement, not supplant, public benefits. Medicaid payback required at death.</td></tr>
+        <tr><td>SSI Resource Exclusion</td><td>SSA POMS SI 01120.200</td><td>Trust assets excluded from SSI only if all &sect; 1396p(d)(4)(A) requirements met. Shelter payments may reduce SSI by up to $331/mo (2026).</td></tr>
+        <tr><td>NM Medicaid SNT Rules</td><td>8.281.510 NMAC</td><td>NM HCA named remainder beneficiary. Trustee must comply with &sect; 46A-8-804 prudent administration.</td></tr>
+        <tr><td>Fiduciary Duties</td><td>NMSA 1978 &sect; 46A-8-801 through &sect; 46A-8-817</td><td>Loyalty, prudent administration, impartiality, duty to inform and report.</td></tr>
+        <tr><td>Successor Appointment by Beneficiary</td><td>NMSA 1978 &sect; 48-10-7</td><td>Where prior trustee resigns, beneficiary may appoint successor. Constitutes substitution of trustee.</td></tr>
+        <tr><td>Santa Fe County Recordation</td><td>NMSA 1978 &sect; 14-9-1; &sect; 46A-10-1013</td><td>Change-of-trustee instrument recorded with Santa Fe County Clerk within 30 days if trust holds real property.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="rule">
+
+  <!-- TRUSTEE DUTIES -->
+  <div class="section">
+    <div class="section-title">IV. Duties Accepted by Successor Trustee</div>
+    <p class="body">By executing this document, the Successor Trustee accepts the following binding duties:</p>
+    <table>
+      <thead><tr><th>Duty</th><th>Requirement</th><th>Legal Basis</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Good Faith Administration</strong></td><td>Administer in good faith per trust terms and in the interests of the Beneficiary.</td><td>&sect; 46A-8-801</td></tr>
+        <tr><td><strong>Loyalty</strong></td><td>Administer solely in the interest of the Beneficiary. No self-dealing.</td><td>&sect; 46A-8-802</td></tr>
+        <tr><td><strong>Prudent Administration</strong></td><td>Exercise reasonable care, skill, and caution as a prudent person would.</td><td>&sect; 46A-8-804</td></tr>
+        <tr><td><strong>Annual Accounting</strong></td><td>Written accounting annually and within 30 days of any written request.</td><td>&sect; 46A-8-813</td></tr>
+        <tr><td><strong>Bill Payment (14 days)</strong></td><td>Pay all essential recurring obligations within 14 days of due date. Failure is prima facie breach.</td><td>&sect; 46A-8-804</td></tr>
+        <tr><td><strong>SNT Compliance — Federal</strong></td><td>All distributions supplement, not supplant, SSI/Medicaid. No distribution that disqualifies beneficiary.</td><td>42 U.S.C. &sect; 1396p; POMS SI 01120.200</td></tr>
+        <tr><td><strong>SSI Shelter Awareness</strong></td><td>Consult benefits counselor before paying rent, mortgage, utilities, property taxes from trust.</td><td>POMS SI 00835.001</td></tr>
+        <tr><td><strong>Medicaid Payback</strong></td><td>Upon beneficiary's death, reimburse NM HCA before any other distribution.</td><td>42 U.S.C. &sect; 1396p(d)(4)(A); 8.281.510 NMAC</td></tr>
+        <tr><td><strong>Sole Benefit</strong></td><td>Trust for sole benefit of Alicia R. Atencio only.</td><td>8.281.510 NMAC &sect; 11(3)</td></tr>
+        <tr><td><strong>Non-Discrimination</strong></td><td>No discrimination based on national origin, race, ethnicity, religion, gender, or immigration status.</td><td>NMSA &sect; 28-1-7; NCG Standards</td></tr>
+        <tr><td><strong>Emergency Distributions</strong></td><td>Make or authorize within 48 hours of documented emergency, or provide written denial with legal basis.</td><td>&sect; 46A-8-804</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="rule">
+
+  <!-- TRANSITION STEPS -->
+  <div class="section">
+    <div class="section-title">V. Transition From Cardinal Trust Inc.</div>
+    <table>
+      <thead><tr><th>Step</th><th>Action Required</th><th>Deadline</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Demand complete transfer of all trust property and records from Cardinal Trust Inc.</td><td>Within 5 days</td></tr>
+        <tr><td>2</td><td>Obtain original Trust instrument dated September 7, 2016 and all amendments.</td><td>Within 5 days</td></tr>
+        <tr><td>3</td><td>Request complete accounting of all distributions March 23 – April 15, 2026. Verify $6,599.55 total.</td><td>Within 5 days</td></tr>
+        <tr><td>4</td><td>Pay all outstanding essential bills: PNM, propane, all loan accounts.</td><td>Within 14 days of fund access</td></tr>
+        <tr><td>5</td><td>Establish written bill payment schedule. Provide copy to Beneficiary.</td><td>Within 14 days</td></tr>
+        <tr><td>6</td><td>Verify Beneficiary's SSI/Medicaid enrollment. Consult benefits counselor before first distribution.</td><td>Within 30 days</td></tr>
+        <tr><td>7</td><td>Execute Certification of Trust per &sect; 46A-10-1013. Record with Santa Fe County Clerk if trust holds real property.</td><td>Within 30 days</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="rule-heavy">
+
+  <!-- SIGNATURES -->
+  <div class="section">
+    <div class="section-title">VI. Signatures</div>
+    <p class="body">IN WITNESS WHEREOF, the undersigned have executed this Trustee Appointment and Acceptance as of the date first written above.</p>
+
+    <!-- Alicia -->
+    <div class="sig-block">
+      <div class="sig-block-title">Beneficiary and Appointing Authority</div>
+      <div class="field-row col-2">
+        <div class="field-group">
+          <label class="field-label">Full Legal Name</label>
+          <input class="field-input" type="text" value="Alicia R. Atencio" readonly style="opacity:0.7;">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="alicia_date">Date Signed *</label>
+          <input class="field-input" id="alicia_date" type="date" data-required="true">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Capacity</label>
+        <input class="field-input" type="text" value="Trust Beneficiary / Appointing Authority" readonly style="opacity:0.7;">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Address</label>
+        <input class="field-input" type="text" value="35 Nambe W, Santa Fe, New Mexico 87508" readonly style="opacity:0.7;">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="alicia_phone">Phone</label>
+        <input class="field-input" id="alicia_phone" type="tel" placeholder="Alicia's phone number">
+      </div>
+      <div class="field-group" style="margin-top:10px;">
+        <label class="field-label">Signature</label>
+        <div class="esig-card" id="alicia_sig_card" data-sig-required="true">
+          <div class="esig-head"><span class="field-label">Draw Signature</span><span class="esig-status" id="alicia_sig_status">Unsigned</span></div>
+          <div class="signature-pad-wrap"><canvas class="signature-pad" id="alicia_sig_pad"></canvas><div class="signature-hint" id="alicia_sig_hint">Draw Alicia's signature here</div></div>
+          <div class="signature-actions no-print"><button class="btn btn-secondary" type="button" onclick="clearSignature('alicia_sig')">Clear</button><button class="btn btn-primary" type="button" onclick="confirmSignature('alicia_sig','Alicia R. Atencio')">Confirm Signature</button></div>
+          <div class="esig-confirmation"><label class="field-label" for="alicia_sig_typed">Type Full Legal Name to Confirm *</label><input class="field-input" id="alicia_sig_typed" type="text" placeholder="Alicia R. Atencio" data-required="true"></div>
+          <div class="esig-confirmed-image" id="alicia_sig_image_box"><img id="alicia_sig_image" alt="Alicia R. Atencio signature"></div>
+          <div class="esig-audit-line" id="alicia_sig_audit"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Father Brenen -->
+    <div class="sig-block">
+      <div class="sig-block-title">Successor Trustee Acceptance</div>
+      <div class="ron-note no-print">
+        <strong>For Father Brenen in Ohio:</strong> Fill in your information below, then use
+        <strong>Notarize.com</strong> or <strong>DocuSign</strong> to sign and notarize remotely.
+        Takes ~15 minutes. Cost ~$25. Fully legal under Ohio Rev. Code &sect; 147.65 and recognized by New Mexico.
+      </div>
+      <div class="field-row col-2">
+        <div class="field-group">
+          <label class="field-label" for="brenen_name">Full Legal Name *</label>
+          <input class="field-input" id="brenen_name" type="text" placeholder="Father Brenen — full legal name" data-required="true">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="brenen_date">Date Signed *</label>
+          <input class="field-input" id="brenen_date" type="date" data-required="true">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="brenen_address">Street Address *</label>
+        <input class="field-input" id="brenen_address" type="text" placeholder="Street address" data-required="true">
+      </div>
+      <div class="field-row col-3">
+        <div class="field-group">
+          <label class="field-label" for="brenen_city">City *</label>
+          <input class="field-input" id="brenen_city" type="text" placeholder="City" data-required="true">
+        </div>
+        <div class="field-group">
+          <label class="field-label">State</label>
+          <input class="field-input" type="text" value="Ohio" readonly style="opacity:0.7;">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="brenen_zip">ZIP *</label>
+          <input class="field-input" id="brenen_zip" type="text" placeholder="ZIP" data-required="true">
+        </div>
+      </div>
+      <div class="field-row col-2">
+        <div class="field-group">
+          <label class="field-label" for="brenen_phone">Phone *</label>
+          <input class="field-input" id="brenen_phone" type="tel" placeholder="(xxx) xxx-xxxx" data-required="true">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="brenen_email">Email *</label>
+          <input class="field-input" id="brenen_email" type="email" placeholder="email@example.com" data-required="true">
+        </div>
+      </div>
+      <div class="field-group" style="margin-top:10px;">
+        <label class="field-label">Signature</label>
+        <div class="esig-card" id="brenen_sig_card" data-sig-required="true">
+          <div class="esig-head"><span class="field-label">Draw Signature</span><span class="esig-status" id="brenen_sig_status">Unsigned</span></div>
+          <div class="signature-pad-wrap"><canvas class="signature-pad" id="brenen_sig_pad"></canvas><div class="signature-hint" id="brenen_sig_hint">Draw Successor Trustee signature here</div></div>
+          <div class="signature-actions no-print"><button class="btn btn-secondary" type="button" onclick="clearSignature('brenen_sig')">Clear</button><button class="btn btn-primary" type="button" onclick="confirmSignature('brenen_sig','Successor Trustee')">Confirm Signature</button></div>
+          <div class="esig-confirmation"><label class="field-label" for="brenen_sig_typed">Type Full Legal Name to Confirm *</label><input class="field-input" id="brenen_sig_typed" type="text" placeholder="Father Brenen full legal name" data-required="true"></div>
+          <div class="esig-confirmed-image" id="brenen_sig_image_box"><img id="brenen_sig_image" alt="Successor Trustee signature"></div>
+          <div class="esig-audit-line" id="brenen_sig_audit"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- NOTARY -->
+  <div class="section">
+    <div class="section-title">VII. Notary Acknowledgment</div>
+
+    <!-- NM Notary -->
+    <div class="notary-block">
+      <div class="notary-block-title">New Mexico Notary &mdash; For Beneficiary Signature</div>
+      <p class="body-sm">Per NMSA 1978 &sect; 14-14A-15 &mdash; State of New Mexico, County of Santa Fe</p>
+      <p class="body" style="margin:10px 0;">This instrument was acknowledged before me by Alicia R. Atencio, as Beneficiary and Appointing Authority of the Pedro and Diane M. Atencio Living Trust.</p>
+      <div class="field-row col-2">
+        <div class="field-group">
+          <label class="field-label" for="nm_notary_date">Date of Notarization</label>
+          <input class="field-input" id="nm_notary_date" type="date">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="nm_commission">Commission Expires</label>
+          <input class="field-input" id="nm_commission" type="date">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="nm_notary_name">Notary Printed Name</label>
+        <input class="field-input" id="nm_notary_name" type="text" placeholder="Notary public full name">
+      </div>
+      <div class="field-group" style="margin-top:10px;">
+        <label class="field-label">Notary Signature &amp; Seal</label>
+        <div class="esig-card" id="nm_notary_sig_card">
+          <div class="esig-head"><span class="field-label">Optional Drawn Notary Signature</span><span class="esig-status" id="nm_notary_sig_status">Unsigned</span></div>
+          <div class="signature-pad-wrap"><canvas class="signature-pad" id="nm_notary_sig_pad"></canvas><div class="signature-hint" id="nm_notary_sig_hint">Notary may sign here</div></div>
+          <div class="signature-actions no-print"><button class="btn btn-secondary" type="button" onclick="clearSignature('nm_notary_sig')">Clear</button><button class="btn btn-primary" type="button" onclick="confirmSignature('nm_notary_sig','NM Notary Public')">Confirm Signature</button></div>
+          <div class="esig-confirmation"><label class="field-label" for="nm_notary_sig_typed">Typed Notary Name Confirmation</label><input class="field-input" id="nm_notary_sig_typed" type="text" placeholder="NM Notary Public full name"></div>
+          <div class="esig-confirmed-image" id="nm_notary_sig_image_box"><img id="nm_notary_sig_image" alt="NM Notary signature"></div>
+          <div class="esig-audit-line" id="nm_notary_sig_audit"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ohio Notary -->
+    <div class="notary-block">
+      <div class="notary-block-title">Ohio Notary &mdash; For Successor Trustee Signature</div>
+      <div class="ron-note">
+        <strong>Remote Online Notarization (RON):</strong> Father Brenen can complete this remotely from Ohio
+        via <strong>Notarize.com</strong> or <strong>NotaryCam.com</strong>. Ohio authorizes RON under
+        Ohio Rev. Code &sect; 147.65 et seq. New Mexico recognizes out-of-state RON notarizations.
+        Approximately $25 and 15&ndash;20 minutes. The RON platform will attach its own certificate in place of this block.
+      </div>
+      <p class="body" style="margin:10px 0;">This instrument was acknowledged before me by the Successor Trustee named below, as Successor Trustee of the Pedro and Diane M. Atencio Living Trust.</p>
+      <div class="field-row col-2">
+        <div class="field-group">
+          <label class="field-label" for="oh_county">County (Ohio)</label>
+          <input class="field-input" id="oh_county" type="text" placeholder="County name">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="oh_notary_date">Date of Notarization</label>
+          <input class="field-input" id="oh_notary_date" type="date">
+        </div>
+      </div>
+      <div class="field-row col-2">
+        <div class="field-group">
+          <label class="field-label" for="oh_trustee_name">Trustee Name (for notary record)</label>
+          <input class="field-input" id="oh_trustee_name" type="text" placeholder="Father Brenen full legal name">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="oh_commission">Commission Expires</label>
+          <input class="field-input" id="oh_commission" type="date">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="oh_notary_name">Notary Printed Name</label>
+        <input class="field-input" id="oh_notary_name" type="text" placeholder="Ohio notary public full name">
+      </div>
+      <div class="field-group" style="margin-top:10px;">
+        <label class="field-label">Ohio Notary Signature &amp; Seal (or attach RON Certificate)</label>
+        <div class="esig-card" id="oh_notary_sig_card">
+          <div class="esig-head"><span class="field-label">Optional Drawn Ohio Notary Signature</span><span class="esig-status" id="oh_notary_sig_status">Unsigned</span></div>
+          <div class="signature-pad-wrap"><canvas class="signature-pad" id="oh_notary_sig_pad"></canvas><div class="signature-hint" id="oh_notary_sig_hint">Ohio Notary may sign here or attach RON certificate</div></div>
+          <div class="signature-actions no-print"><button class="btn btn-secondary" type="button" onclick="clearSignature('oh_notary_sig')">Clear</button><button class="btn btn-primary" type="button" onclick="confirmSignature('oh_notary_sig','OH Notary Public')">Confirm Signature</button></div>
+          <div class="esig-confirmation"><label class="field-label" for="oh_notary_sig_typed">Typed Ohio Notary Name Confirmation</label><input class="field-input" id="oh_notary_sig_typed" type="text" placeholder="Ohio Notary Public full name"></div>
+          <div class="esig-confirmed-image" id="oh_notary_sig_image_box"><img id="oh_notary_sig_image" alt="Ohio Notary signature"></div>
+          <div class="esig-audit-line" id="oh_notary_sig_audit"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule-heavy">
+
+  <!-- LEGAL CITATIONS -->
+  <div class="section">
+    <div class="section-title">VIII. Legal Sources and Citations</div>
+    <p class="body-sm">All citations verified as of April 2026. Retained attorney should confirm current effectiveness before execution.</p>
+
+    <div class="citation-group">
+      <div class="citation-group-title">Federal Law</div>
+      <div class="citation-item">42 U.S.C. &sect; 1396p(d)(4)(A) &mdash; OBRA '93 &mdash; Federal special needs trust requirements</div>
+      <div class="citation-item">42 U.S.C. &sect; 1382c(a)(3) &mdash; SSI definition of disability</div>
+      <div class="citation-item">15 U.S.C. &sect; 7001 (ESIGN Act) &mdash; Federal electronic signature recognition</div>
+    </div>
+
+    <div class="citation-group">
+      <div class="citation-group-title">SSA Policy (POMS)</div>
+      <div class="citation-item">SSA POMS SI 01120.200 &mdash; Trusts established on or after 1/1/2000</div>
+      <div class="citation-item">SSA POMS SI 01120.203 &mdash; Exceptions to counting trusts (SNT exclusion)</div>
+      <div class="citation-item">SSA POMS SI 00835.001 &mdash; In-Kind Support and Maintenance (ISM) rules</div>
+      <div class="citation-item">SSA SSI Federal Benefit Rate 2026 &mdash; $994/month; ISM reduction cap $331/month</div>
+    </div>
+
+    <div class="citation-group">
+      <div class="citation-group-title">New Mexico Uniform Trust Code (NMSA 1978 Chapter 46A)</div>
+      <div class="citation-item">&sect; 46A-7-701 &mdash; Acceptance of trusteeship</div>
+      <div class="citation-item">&sect; 46A-7-704 &mdash; Vacancy in trusteeship; appointment of successor</div>
+      <div class="citation-item">&sect; 46A-7-706 &mdash; Removal of trustee</div>
+      <div class="citation-item">&sect; 46A-8-801 through &sect; 46A-8-817 &mdash; Duties and powers of trustee (full chain)</div>
+      <div class="citation-item">&sect; 46A-8-802 &mdash; Duty of loyalty</div>
+      <div class="citation-item">&sect; 46A-8-804 &mdash; Prudent administration</div>
+      <div class="citation-item">&sect; 46A-8-805 &mdash; Costs of administration</div>
+      <div class="citation-item">&sect; 46A-8-813 &mdash; Duty to inform and report</div>
+      <div class="citation-item">&sect; 46A-10-1013 &mdash; Certification of trust</div>
+      <div class="citation-item">&sect; 46-12-113 &mdash; Trust for beneficiary with disability (Decanting Act)</div>
+    </div>
+
+    <div class="citation-group">
+      <div class="citation-group-title">Other New Mexico Statutes</div>
+      <div class="citation-item">NMSA 1978 &sect; 48-10-7 &mdash; Appointment of successor trustee by beneficiary</div>
+      <div class="citation-item">NMSA 1978 &sect; 27-2-12 et seq. &mdash; NM Medicaid program statutes</div>
+      <div class="citation-item">NMSA 1978 &sect; 28-1-7 &mdash; NM Human Rights Act &mdash; discrimination prohibition</div>
+      <div class="citation-item">NMSA 1978 &sect; 14-9-1 et seq. &mdash; Santa Fe County recording requirements</div>
+      <div class="citation-item">NMSA 1978 &sect; 14-8-6 &mdash; NM recording margin requirements</div>
+      <div class="citation-item">NMSA 1978 &sect; 14-14A-15 &mdash; NM short-form notary certificate</div>
+    </div>
+
+    <div class="citation-group">
+      <div class="citation-group-title">New Mexico Regulations</div>
+      <div class="citation-item">8.281.510 NMAC &mdash; NM HCA Recognized Medicaid Trusts (SNT requirements)</div>
+      <div class="citation-item">8.281.510.11 NMAC &sect; 11 &mdash; Specific trustee compliance requirements</div>
+    </div>
+
+    <div class="citation-group">
+      <div class="citation-group-title">Ohio Law (Remote Signing)</div>
+      <div class="citation-item">Ohio Rev. Code &sect; 147.65 et seq. &mdash; Ohio Remote Online Notarization (RON)</div>
+    </div>
+
+    <div class="citation-group">
+      <div class="citation-group-title">Standards</div>
+      <div class="citation-item">National Certified Guardian (NCG) Standards of Practice &mdash; Center for Guardianship Certification</div>
+    </div>
+  </div>
+
+
+  <hr class="rule-heavy">
+
+  <!-- SECURITY / AUDIT TRAIL -->
+  <div class="section" id="audit-section">
+    <div class="section-title">IX. Electronic Signature Security and Audit Trail</div>
+    <div class="audit-panel">
+      <div class="audit-panel-title">Tamper-Evident Document Record</div>
+      <div class="audit-grid" id="audit-grid">
+        <div><strong>Document ID:</strong> <span id="audit-doc-id">Pending</span></div>
+        <div><strong>Finalization Status:</strong> <span id="audit-final-status">Not finalized</span></div>
+        <div><strong>Signers:</strong> <span id="audit-signers">Pending signatures</span></div>
+        <div><strong>Typed Confirmations:</strong> <span id="audit-confirmations">Pending</span></div>
+        <div><strong>Timestamps:</strong> <span id="audit-timestamps">Pending</span></div>
+        <div><strong>Browser Fingerprint:</strong> <span id="audit-fingerprint">Pending</span></div>
+        <div><strong>IP Address:</strong> Client-side static HTML cannot independently verify or record IP address. Hosting logs, email records, or notarization platform records may provide external IP metadata.</div>
+      </div>
+      <div class="hash-block" id="hash-block">SHA-256 DOCUMENT HASH: NOT FINALIZED</div>
+      <div class="audit-warning"><strong>Tamper-evident notice:</strong> The SHA-256 hash is computed from the full document state at finalization, including field values, signature PNG data URLs, typed confirmations, timestamps, and browser fingerprint. Any post-sign alteration invalidates the hash and requires re-finalization.</div>
+    </div>
+  </div>
+
+  <hr class="rule">
+  <p style="font-size:11px;color:#8a7f70;text-align:center;line-height:1.6;">
+    Prepared by Sena Colectivo Research Team &middot; April 2026 &middot; For Alicia R. Atencio and her retained attorney<br>
+    This document does not constitute legal advice &middot; Salvador Sena &middot; salvadorsena@senacolectivo.com &middot; (505) 328-6561
+  </p>
+
+</div><!-- /page -->
+
+<!-- STATUS BAR -->
+<div class="status-bar no-print">
+  <div id="status-text">Completion: <span id="completion-pct" class="status-complete">0%</span></div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+  <div id="fields-status">0 of 0 required fields complete</div>
+</div>
+
+<script>
+'use strict';
+
+const URL_BASE = 'https://salchicanoloco.github.io/portalsociolista/Atencio_Trustee_Esign.html';
+const REQUIRED_IDS = [
+  'doc_date','trustee_name','trustee_phone','trustee_email','trustee_address','trustee_city','trustee_zip','trustee_relationship',
+  'brenen_name','brenen_address','brenen_city','brenen_zip','brenen_phone','brenen_email',
+  'alicia_date','brenen_date','alicia_sig_typed','brenen_sig_typed'
+];
+const REQUIRED_SIGNATURES = ['alicia_sig','brenen_sig'];
+const SIGNATURE_IDS = ['alicia_sig','brenen_sig','nm_notary_sig','oh_notary_sig'];
+const state = {
+  docId: createDocumentId(),
+  finalizedAt: null,
+  finalHash: null,
+  signatures: {}
+};
+
+function createDocumentId() {
+  const bytes = new Uint8Array(12);
+  if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(bytes);
+  else for (let i=0;i<bytes.length;i++) bytes[i] = Math.floor(Math.random()*256);
+  return 'ATENCIO-SNT-' + Array.from(bytes).map(b => b.toString(16).padStart(2,'0')).join('').toUpperCase();
+}
+
+function nowStamp() {
+  const d = new Date();
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown timezone';
+  return d.toLocaleString('en-US', { dateStyle:'full', timeStyle:'long' }) + ' (' + tz + ')';
+}
+
+function browserFingerprint() {
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown timezone';
+  return [
+    'userAgent=' + navigator.userAgent,
+    'screen=' + window.screen.width + 'x' + window.screen.height + 'x' + window.screen.colorDepth,
+    'viewport=' + window.innerWidth + 'x' + window.innerHeight,
+    'timezone=' + tz,
+    'language=' + navigator.language
+  ].join(' | ');
+}
+
+function initSignaturePads() {
+  SIGNATURE_IDS.forEach(id => {
+    state.signatures[id] = { drawn:false, confirmed:false, dataUrl:null, timestamp:null, typedName:null };
+    const canvas = document.getElementById(id + '_pad');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+    let last = null;
+
+    function resizeCanvas() {
+      const data = state.signatures[id]?.dataUrl;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      canvas.width = Math.max(1, Math.floor(rect.width * ratio));
+      canvas.height = Math.floor(150 * ratio);
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = '150px';
+      ctx.setTransform(ratio,0,0,ratio,0,0);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#1a1209';
+      if (data) {
+        const img = new Image();
+        img.onload = () => ctx.drawImage(img, 0, 0, rect.width, 150);
+        img.src = data;
+      }
+    }
+
+    function pointFromEvent(e) {
+      const rect = canvas.getBoundingClientRect();
+      return { x:e.clientX - rect.left, y:e.clientY - rect.top, t:Date.now() };
+    }
+
+    function lineWidth(prev, cur) {
+      if (!prev) return 2.2;
+      const dx = cur.x - prev.x;
+      const dy = cur.y - prev.y;
+      const dt = Math.max(cur.t - prev.t, 1);
+      const velocity = Math.sqrt(dx*dx + dy*dy) / dt;
+      const width = 4.0 - Math.min(velocity * 3.2, 2.8);
+      return Math.max(1.15, Math.min(4.0, width));
+    }
+
+    canvas.addEventListener('pointerdown', e => {
+      e.preventDefault();
+      canvas.setPointerCapture(e.pointerId);
+      drawing = true;
+      last = pointFromEvent(e);
+      ctx.beginPath();
+      ctx.moveTo(last.x, last.y);
+    });
+    canvas.addEventListener('pointermove', e => {
+      if (!drawing) return;
+      e.preventDefault();
+      const cur = pointFromEvent(e);
+      ctx.lineWidth = lineWidth(last, cur);
+      ctx.lineTo(cur.x, cur.y);
+      ctx.stroke();
+      last = cur;
+      state.signatures[id].drawn = true;
+      const hint = document.getElementById(id + '_hint');
+      if (hint) hint.style.display = 'none';
+      updateProgress();
+    });
+    ['pointerup','pointercancel','pointerleave'].forEach(type => canvas.addEventListener(type, e => {
+      if (!drawing) return;
+      drawing = false;
+      try { canvas.releasePointerCapture(e.pointerId); } catch(_e) {}
+    }));
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+  });
+}
+
+function clearSignature(id) {
+  const canvas = document.getElementById(id + '_pad');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  state.signatures[id] = { drawn:false, confirmed:false, dataUrl:null, timestamp:null, typedName:null };
+  const hint = document.getElementById(id + '_hint');
+  const status = document.getElementById(id + '_status');
+  const card = document.getElementById(id + '_card');
+  const imgBox = document.getElementById(id + '_image_box');
+  const img = document.getElementById(id + '_image');
+  const audit = document.getElementById(id + '_audit');
+  if (hint) hint.style.display = 'flex';
+  if (status) { status.textContent = 'Unsigned'; status.classList.remove('ok'); }
+  if (card) card.classList.remove('confirmed');
+  if (imgBox) imgBox.style.display = 'none';
+  if (img) img.removeAttribute('src');
+  if (audit) { audit.style.display = 'none'; audit.textContent = ''; }
+  updateProgress();
+}
+
+function confirmSignature(id, roleLabel) {
+  const sig = state.signatures[id];
+  const canvas = document.getElementById(id + '_pad');
+  const typed = document.getElementById(id + '_typed');
+  if (!sig || !canvas || !typed) return;
+  if (!sig.drawn) {
+    markMissingCanvas(id);
+    alert('Cannot confirm an empty signature canvas. Draw the signature first.');
+    return;
+  }
+  if (!typed.value.trim()) {
+    typed.classList.add('required-missing');
+    typed.focus();
+    alert('Type the full legal name to confirm signer identity.');
+    return;
+  }
+  sig.dataUrl = canvas.toDataURL('image/png');
+  sig.timestamp = nowStamp();
+  sig.typedName = typed.value.trim();
+  sig.confirmed = true;
+
+  const status = document.getElementById(id + '_status');
+  const card = document.getElementById(id + '_card');
+  const imgBox = document.getElementById(id + '_image_box');
+  const img = document.getElementById(id + '_image');
+  const audit = document.getElementById(id + '_audit');
+  if (status) { status.textContent = 'Confirmed'; status.classList.add('ok'); }
+  if (card) card.classList.add('confirmed');
+  if (img) img.src = sig.dataUrl;
+  if (imgBox) imgBox.style.display = 'block';
+  if (audit) {
+    audit.style.display = 'block';
+    audit.textContent = 'Confirmed by typed name: ' + sig.typedName + ' | Role: ' + roleLabel + ' | Timestamp: ' + sig.timestamp;
+  }
+  updateProgress();
+}
+
+function markMissingCanvas(id) {
+  const wrap = document.querySelector('#' + id + '_card .signature-pad-wrap');
+  if (wrap) {
+    wrap.style.borderColor = '#c04030';
+    setTimeout(() => { wrap.style.borderColor = ''; }, 1800);
+  }
+}
+
+function getFieldValue(id) {
+  const el = document.getElementById(id);
+  return el ? (el.value || '').trim() : '';
+}
+
+function validateFinalization(showAlerts=true) {
+  const missing = [];
+  REQUIRED_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (!el.value.trim()) { el.classList.add('required-missing'); el.classList.remove('required-ok'); missing.push(labelFor(el)); }
+    else { el.classList.remove('required-missing'); el.classList.add('required-ok'); }
+  });
+  REQUIRED_SIGNATURES.forEach(id => {
+    if (!state.signatures[id]?.confirmed) {
+      missing.push(id === 'alicia_sig' ? 'Alicia drawn and confirmed signature' : 'Successor Trustee drawn and confirmed signature');
+      markMissingCanvas(id);
+    }
+  });
+  if (missing.length && showAlerts) alert('Cannot finalize. Missing required items:\n\n- ' + missing.join('\n- '));
+  return missing;
+}
+
+function labelFor(el) {
+  const lab = document.querySelector('label[for="' + el.id + '"]');
+  return lab ? lab.textContent.replace('*','').trim() : el.id;
+}
+
+function collectDocumentState() {
+  const fields = {};
+  document.querySelectorAll('input, textarea, select').forEach(el => {
+    const key = el.id || el.name || el.type + '_' + Object.keys(fields).length;
+    fields[key] = el.value || '';
+  });
+  const signatures = {};
+  SIGNATURE_IDS.forEach(id => signatures[id] = state.signatures[id]);
+  return {
+    documentTitle: document.title,
+    documentId: state.docId,
+    finalizedAt: state.finalizedAt,
+    fields,
+    signatures,
+    fingerprint: browserFingerprint(),
+    tamperNotice: 'Any post-sign alteration invalidates this SHA-256 hash.'
+  };
+}
+
+async function sha256Hex(str) {
+  if (!window.crypto || !crypto.subtle) throw new Error('crypto.subtle unavailable. Use HTTPS or localhost for browser hashing.');
+  const bytes = new TextEncoder().encode(str);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', bytes);
+  return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function finalizeDocument() {
+  const missing = validateFinalization(true);
+  if (missing.length) return false;
+  state.finalizedAt = nowStamp();
+  const docState = collectDocumentState();
+  try {
+    const hash = await sha256Hex(JSON.stringify(docState));
+    state.finalHash = hash;
+    renderAudit(docState, hash);
+    alert('Document finalized. SHA-256 hash generated and audit trail updated.');
+    updateProgress();
+    return true;
+  } catch (err) {
+    alert('Hash generation failed: ' + err.message + '\n\nUse HTTPS on GitHub Pages or print/save PDF as fallback.');
+    return false;
+  }
+}
+
+function renderAudit(docState, hash) {
+  document.getElementById('audit-doc-id').textContent = state.docId;
+  document.getElementById('audit-final-status').textContent = 'Finalized at ' + state.finalizedAt;
+  document.getElementById('audit-signers').textContent = [
+    'Alicia R. Atencio',
+    getFieldValue('brenen_name') || getFieldValue('trustee_name') || 'Successor Trustee'
+  ].join(' | ');
+  document.getElementById('audit-confirmations').textContent = [
+    'Alicia typed: ' + getFieldValue('alicia_sig_typed'),
+    'Trustee typed: ' + getFieldValue('brenen_sig_typed')
+  ].join(' | ');
+  document.getElementById('audit-timestamps').textContent = REQUIRED_SIGNATURES.map(id => {
+    return id + ': ' + (state.signatures[id]?.timestamp || 'Missing');
+  }).join(' | ') + ' | Finalized: ' + state.finalizedAt;
+  document.getElementById('audit-fingerprint').textContent = docState.fingerprint;
+  document.getElementById('hash-block').textContent = 'SHA-256 DOCUMENT HASH: ' + hash;
+}
+
+async function downloadSignedPDF() {
+  const ok = state.finalHash ? true : await finalizeDocument();
+  if (!ok) return;
+  if (!window.html2canvas || !window.jspdf?.jsPDF) {
+    alert('PDF libraries are not available. Use Print / Save PDF instead.');
+    window.print();
+    return;
+  }
+  const toolbar = document.querySelector('.toolbar');
+  const statusBar = document.querySelector('.status-bar');
+  try {
+    if (toolbar) toolbar.style.display = 'none';
+    if (statusBar) statusBar.style.display = 'none';
+    const element = document.getElementById('document');
+    const canvas = await html2canvas(element, { scale:2, backgroundColor:'#faf8f4', useCORS:true, logging:false });
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation:'portrait', unit:'pt', format:'letter' });
+    pdf.setProperties({
+      title:'Trustee Appointment and Acceptance — Atencio Living Trust',
+      author:'Sena Colectivo / Alicia R. Atencio',
+      subject:'Signed Trustee Appointment and Acceptance',
+      keywords:'Atencio Living Trust, Trustee Appointment, SHA-256, Document ID ' + state.docId,
+      creator:'Atencio Trustee E-Sign HTML App'
+    });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const imgW = pageW;
+    const imgH = canvas.height * imgW / canvas.width;
+    let remaining = imgH;
+    let y = 0;
+    pdf.addImage(imgData, 'PNG', 0, y, imgW, imgH, undefined, 'FAST');
+    remaining -= pageH;
+    while (remaining > 0) {
+      y -= pageH;
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, y, imgW, imgH, undefined, 'FAST');
+      remaining -= pageH;
+    }
+    pdf.save('Atencio_Trustee_Appointment_Signed_' + state.docId + '.pdf');
+  } catch (err) {
+    alert('PDF export failed: ' + err.message + '\n\nUse Print / Save PDF fallback.');
+    window.print();
+  } finally {
+    if (toolbar) toolbar.style.display = '';
+    if (statusBar) statusBar.style.display = '';
+  }
+}
+
+function buildSigningUrl() {
+  const params = new URLSearchParams();
+  const map = {
+    trustee_name:'trustee_name', trustee_phone:'trustee_phone', trustee_email:'trustee_email', trustee_address:'trustee_address', trustee_city:'trustee_city', trustee_state:'trustee_state', trustee_zip:'trustee_zip', trustee_relationship:'trustee_relationship',
+    brenen_name:'brenen_name', brenen_address:'brenen_address', brenen_city:'brenen_city', brenen_zip:'brenen_zip', brenen_phone:'brenen_phone', brenen_email:'brenen_email', oh_trustee_name:'oh_trustee_name'
+  };
+  Object.keys(map).forEach(id => {
+    const val = getFieldValue(id);
+    if (val) params.set(map[id], val);
+  });
+  return URL_BASE + (params.toString() ? '?' + params.toString() : '');
+}
+
+async function copySigningLink() {
+  const url = buildSigningUrl();
+  try {
+    await navigator.clipboard.writeText(url);
+    alert('Signing link copied to clipboard.');
+  } catch (_err) {
+    prompt('Copy this signing link:', url);
+  }
+}
+
+function emailSigner() {
+  const url = buildSigningUrl();
+  const to = getFieldValue('brenen_email');
+  const subject = encodeURIComponent('Trustee Appointment and Acceptance — Signature Requested');
+  const body = encodeURIComponent('Father Brenen,\n\nPlease review and complete the Trustee Appointment and Acceptance document at the secure static signing link below. Draw your signature, type your full legal name to confirm identity, finalize the document, and return the signed PDF.\n\n' + url + '\n\nNote: this client-side page creates a tamper-evident SHA-256 document hash after finalization.\n');
+  window.location.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + subject + '&body=' + body;
+}
+
+function applyQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  params.forEach((value,key) => {
+    const el = document.getElementById(key);
+    if (el && !el.readOnly) el.value = value;
+  });
+  if (params.get('brenen_name') && document.getElementById('oh_trustee_name')) document.getElementById('oh_trustee_name').value = params.get('brenen_name');
+}
+
+function updateProgress() {
+  let done = 0;
+  const total = REQUIRED_IDS.length + REQUIRED_SIGNATURES.length;
+  REQUIRED_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.value.trim()) done++;
+  });
+  REQUIRED_SIGNATURES.forEach(id => { if (state.signatures[id]?.confirmed) done++; });
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  const pctEl = document.getElementById('completion-pct');
+  const fill = document.getElementById('progress-fill');
+  const topFill = document.getElementById('top-progress-fill');
+  const status = document.getElementById('fields-status');
+  if (pctEl) pctEl.textContent = pct + '%';
+  if (fill) fill.style.width = pct + '%';
+  if (topFill) topFill.style.width = pct + '%';
+  if (status) status.textContent = done + ' of ' + total + ' required signing items complete';
+  const docIdEl = document.getElementById('audit-doc-id');
+  if (docIdEl && docIdEl.textContent === 'Pending') docIdEl.textContent = state.docId;
+}
+
+function clearForm() {
+  if (!confirm('Clear all filled fields and signatures in this session?')) return;
+  document.querySelectorAll('input:not([readonly]), textarea').forEach(el => {
+    el.value = '';
+    el.classList.remove('required-missing','required-ok');
+    el.style.borderBottomColor = '';
+  });
+  SIGNATURE_IDS.forEach(clearSignature);
+  state.finalizedAt = null;
+  state.finalHash = null;
+  document.getElementById('audit-final-status').textContent = 'Not finalized';
+  document.getElementById('audit-signers').textContent = 'Pending signatures';
+  document.getElementById('audit-confirmations').textContent = 'Pending';
+  document.getElementById('audit-timestamps').textContent = 'Pending';
+  document.getElementById('audit-fingerprint').textContent = 'Pending';
+  document.getElementById('hash-block').textContent = 'SHA-256 DOCUMENT HASH: NOT FINALIZED';
+  updateProgress();
+}
+
+// Backward-compatible toolbar alias from original file.
+function checkCompletion() { validateFinalization(true); updateProgress(); }
+
+window.addEventListener('DOMContentLoaded', () => {
+  applyQueryParams();
+  initSignaturePads();
+  document.querySelectorAll('input, textarea, select').forEach(el => {
+    el.addEventListener('input', () => {
+      el.classList.remove('required-missing');
+      updateProgress();
+    });
+    el.addEventListener('change', updateProgress);
+  });
+  document.getElementById('audit-doc-id').textContent = state.docId;
+  updateProgress();
+});
+</script>
+</body>
+</html>
